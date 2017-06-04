@@ -10,3 +10,6 @@
 * Overlay还有一个重要的作用：显示DRM的内容，DRM的内容不能被SurfaceFlinger或者GLES访问。
 * Triple-Buffering：
 ![BufferQueue](https://github.com/WellsLee/development-notes/blob/master/android/graphics/BufferQueue.png)
+* 用于display surface的BufferQueue一般是3块buffer，但这些buffer是按需分配。所以如果producer产生buffer数据很慢（可能将会导致在60fps的display上只能有30fps的刷新率），BufferQueue里面可能就只有两块已分配的buffer。 这对降低内存消耗有帮助。可以通过dumpsys SurfaceFlinger的数据来了解每个layer的buffers。
+* 曾经一段时间渲染都是由sw完成的，今天同样可以这么做。低层的实现是由skia 图形库所提供。随着时间的推移，支持多方面用途的3D引擎的设备出现，Android采用OpenGL ES来适应。特别要注意的是view的onDraw函数中的canvas可能是硬件加速的canvas，如果这个canvas是app直接通过lockCanvas()获取的就不是硬件加速的canvas。
+* Producer 第一次从BufferQueue中请求buffer时，buffer将会被分配，并初始化为0。
