@@ -9,3 +9,4 @@
 * FB_TARGET layer是GLES合成输出，是一个scratch buffer。
 * Overlay还有一个重要的作用：显示DRM的内容，DRM的内容不能被SurfaceFlinger或者GLES访问。
 * Triple-Buffering：
+![BufferQueue]https://github.com/WellsLee/development-notes/blob/master/android/graphics/BufferQueue.png
