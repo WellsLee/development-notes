@@ -1,0 +1,10 @@
+# 来源于《深入理解AudioService》
+
+# 概述
+* AudioService继承自IAudioService.Stub。IAudioService.Stub类很明显是通过IAudioService.aidl自动生成的。AudioService位于Bn端。
+* AudioManager拥有AudioService的Bp端，是AudioService在客户端的一个代理。几乎所有客户端对AudioManager进行的请求，最终都会交由AudioService实现。
+* AudioService的功能实现依赖AudioSystem类，AudioSystem无法实例化，它是java层到native层的代理。AudioService将通过它与AudioPolicyService以及AudioFlinger进行交互。
+
+# 音量管理
+* Android输入系统将该事件一路派发给Activity，如果无人截获并消费这个事件，承载当前Activity的显示的PhoneWindow类的onKeyDown()或onKeyUp()函数将会将其处理，从而开始了通过音量键调整音量的处理流程。应用程序可以重写自己的onKeyDown()函数，将音量键用作其他的功能。
+
